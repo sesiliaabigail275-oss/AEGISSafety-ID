@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AEGIS Safety | K3 Professional System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* WARNA KHAS K3 INDONESIA */
+        :root { 
+            --k3-green: #008000; 
+            --k3-white: #ffffff;
+            --k3-dark: #1a1a1a;
+        }
+        body { background-color: #f4f7f4; font-family: 'Inter', sans-serif; }
+        
+        /* HEADER BERSIH ALA SERAGAM K3 */
+        .header-k3 { 
+            background-color: var(--k3-white); 
+            border-bottom: 6px solid var(--k3-green);
+        }
+        
+        .card { background: white; border-radius: 12px; shadow: 0 4px 6px -1px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; }
+        
+        /* TAB STYLE */
+        .active-tab { 
+            background-color: var(--k3-green) !important; 
+            color: white !important; 
+        }
+        
+        /* SEVERITY COLORS */
+        .severity-low { background-color: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+        .severity-medium { background-color: #fef9c3; color: #854d0e; border: 1px solid #fef08a; }
+        .severity-high { background-color: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+        
+        /* LOGO K3 KUSTOM STYLING */
+        .k3-logo-kustom {
+            border: 4px solid var(--k3-green);
+            padding: 2px;
+            border-radius: 9999px; /* Lingkaran sempurna */
+            display: inline-block;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            background-color: white;
+        }
+    </style>
+</head>
+<body class="pb-24">
+
+    <div class="header-k3 p-8 shadow-md mb-6 text-center">
+        <div class="flex justify-center mb-5">
+            <div class="k3-logo-kustom">
+                <img src="https://raw.githubusercontent.com/sesiliaabigail275-oss/safetylink/main/logo_k3_kustom.png" alt="Logo AEGIS Safety" class="h-20 w-20 object-contain rounded-full">
+            </div>
+        </div>
+        <h1 class="text-3xl font-black tracking-tighter text-gray-800 uppercase">AEGIS SAFETY</h1>
+        <p class="text-xs font-bold mt-1 tracking-[0.3em] text-green-700 uppercase">Utamakan Keselamatan & Kesehatan Kerja</p>
+    </div>
+
+    <div class="container mx-auto px-5">
+        <div class="flex gap-2 mb-8 bg-gray-200 p-1 rounded-xl shadow-inner">
+            <button onclick="switchTab('identitas')" id="tab-identitas" class="flex-1 py-3 rounded-lg text-sm font-bold bg-white text-gray-600 active-tab">
+                <i class="fas fa-id-card mr-2"></i>IDENTITAS
+            </button>
+            <button onclick="switchTab('lapor')" id="tab-lapor" class="flex-1 py-3 rounded-lg text-sm font-bold text-gray-600">
+                <i class="fas fa-exclamation-triangle mr-2"></i>LAPOR
+            </button>
+        </div>
+
+        <div id="content-identitas" class="space-y-5">
+            <div class="card p-6 border-l-8 border-green-600">
+                <h3 class="font-bold text-lg text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-user-circle text-green-700 mr-3 text-xl"></i> 
+                    Informasi Medis Pekerja
+                </h3>
+                <div class="space-y-4">
+                    <input type="text" id="nama" class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none" placeholder="Nama Lengkap">
+                    <div class="grid grid-cols-2 gap-4">
+                        <select id="goldar" class="border border-gray-300 rounded-lg p-3 outline-none">
+                            <option value="">Gol. Darah</option>
+                            <option value="A">A</option><option value="B">B</option><option value="AB">AB</option><option value="O">O</option>
+                        </select>
+                        <input type="tel" id="emergency_contact" class="border border-gray-300 rounded-lg p-3 outline-none" placeholder="Kontak Darurat">
+                    </div>
+                    <textarea id="riwayat_medis" class="w-full border border-gray-300 rounded-lg p-3 text-sm bg-gray-50" rows="2" placeholder="Riwayat Medis/Alergi"></textarea>
+                    
+                    <div class="bg-green-50 p-4 rounded-lg border border-green-100">
+                        <h4 class="text-xs font-black text-green-800 mb-2 underline tracking-widest uppercase">PANDUAN KESELAMATAN:</h4>
+                        <ul class="text-[10px] list-disc ml-4 space-y-1 text-green-900 font-bold">
+                            <li>Gunakan APD Lengkap sesuai standar area kerja.</li>
+                            <li>Laporkan setiap kondisi tidak aman (Unsafe Condition).</li>
+                            <li>Pastikan tubuh dalam kondisi fit sebelum bekerja.</li>
+                        </ul>
+                    </div>
+                    
+                    <button onclick="saveProfile()" class="w-full bg-green-700 text-white py-4 rounded-xl font-bold shadow-lg hover:bg-green-800 transition uppercase tracking-widest">
+                        SIMPAN DATA PEKERJA
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="content-lapor" class="hidden space-y-5">
+            <div class="card p-6 border-l-8 border-red-600">
+                <h3 class="font-black text-xl text-red-700 mb-5 uppercase">FORMULIR PELAPORAN</h3>
+                
+                <div class="space-y-5">
+                    <div>
+                        <label class="text-[10px] font-black text-gray-500 uppercase">Tingkat Bahaya Temuan:</label>
+                        <div class="grid grid-cols-3 gap-2 mt-2">
+                            <button onclick="setSeverity('RENDAH')" id="sev-low" class="py-2 text-[10px] font-bold rounded-lg severity-low">RENDAH</button>
+                            <button onclick="setSeverity('SEDANG')" id="sev-med" class="py-2 text-[10px] font-bold rounded-lg bg-gray-100 text-gray-400">SEDANG</button>
+                            <button onclick="setSeverity('TINGGI')" id="sev-high" class="py-2 text-[10px] font-bold rounded-lg bg-gray-100 text-gray-400">TINGGI</button>
+                        </div>
+                    </div>
+
+                    <select id="kategori" class="w-full border border-gray-300 p-3 rounded-lg bg-white font-bold text-gray-700">
+                        <option value="">Pilih Kategori Bahaya...</option>
+                        <option value="Perilaku Tidak Fokus">Pekerja Kurang Konsentrasi</option>
+                        <option value="Pohon Rawan Tumbang">Area Pohon Gantung/Rawan</option>
+                        <option value="Fauna Berbahaya">Binatang Buas/Berbisa</option>
+                        <option value="Titik Kebakaran">Terpantau Api/Asap</option>
+                        <option value="Alat Berat Bermasalah">Kerusakan Mekanis Alat</option>
+                    </select>
+
+                    <textarea id="detail" class="w-full border border-gray-300 rounded-lg p-4 text-sm" rows="3" placeholder="Jelaskan detail temuan dan lokasi petak..."></textarea>
+
+                    <div class="border-2 border-dashed border-gray-300 p-4 rounded-lg text-center bg-gray-50">
+                        <i class="fas fa-camera text-gray-400 text-2xl mb-2"></i>
+                        <input type="file" id="foto" class="text-[10px] w-full text-gray-500" accept="image/*">
+                    </div>
+
+                    <div id="gps-status" class="bg-gray-100 p-3 rounded-lg text-[10px] flex items-center justify-between border border-gray-200">
+                        <span id="coord-text" class="font-bold text-gray-500 italic">GPS: Belum Terkunci</span>
+                        <button onclick="getLocation()" class="bg-blue-600 text-white px-4 py-1 rounded font-bold uppercase">AMBIL KOORDINAT</button>
+                    </div>
+
+                    <button onclick="kirimLaporan()" class="w-full bg-red-600 text-white py-4 rounded-xl font-black shadow-xl hover:bg-red-700 transition uppercase tracking-widest">
+                        KIRIM LAPORAN SEKARANG
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz6Y85HP8PmW8R1BvfUm0urEkfnCMnaEz-BfFu3ULxnjb7palVokUwgifyGj4jscXxkHQ/exec";
+        let lat = "", lng = "", currentSeverity = "RENDAH";
+
+        function setSeverity(val) {
+            currentSeverity = val;
+            const sLow = document.getElementById('sev-low');
+            const sMed = document.getElementById('sev-med');
+            const sHigh = document.getElementById('sev-high');
+            [sLow, sMed, sHigh].forEach(el => { el.className = "py-2 text-[10px] font-bold rounded-lg bg-gray-100 text-gray-400"; });
+            if(val === 'RENDAH') sLow.className = "py-2 text-[10px] font-bold rounded-lg severity-low";
+            if(val === 'SEDANG') sMed.className = "py-2 text-[10px] font-bold rounded-lg severity-medium";
+            if(val === 'TINGGI') sHigh.className = "py-2 text-[10px] font-bold rounded-lg severity-high";
+        }
+
+        function switchTab(tab) {
+            const idenTab = document.getElementById('tab-identitas');
+            const laporTab = document.getElementById('tab-lapor');
+            const idenCont = document.getElementById('content-identitas');
+            const laporCont = document.getElementById('content-lapor');
+
+            if(tab === 'identitas') {
+                idenTab.classList.add('active-tab');
+                laporTab.classList.remove('active-tab');
+                idenCont.classList.remove('hidden'); laporCont.classList.add('hidden');
+            } else {
+                laporTab.classList.add('active-tab');
+                idenTab.classList.remove('active-tab');
+                laporCont.classList.remove('hidden'); idenCont.classList.add('hidden');
+            }
+        }
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(position => {
+                    lat = position.coords.latitude;
+                    lng = position.coords.longitude;
+                    document.getElementById('coord-text').innerHTML = `<span class="text-green-700 italic underline">LOKASI TERKUNCI ✅</span>`;
+                }, () => alert("Gagal mengambil lokasi!"));
+            }
+        }
+
+        function saveProfile() {
+            const profile = {
+                nama: document.getElementById('nama').value,
+                goldar: document.getElementById('goldar').value,
+                contact: document.getElementById('emergency_contact').value,
+                medis: document.getElementById('riwayat_medis').value
+            };
+            localStorage.setItem('userProfile', JSON.stringify(profile));
+            alert("✅ Data Berhasil Disimpan!");
+        }
+
+        window.onload = () => {
+            const saved = localStorage.getItem('userProfile');
+            if(saved) {
+                const d = JSON.parse(saved);
+                document.getElementById('nama').value = d.nama || "";
+                document.getElementById('goldar').value = d.goldar || "";
+                document.getElementById('emergency_contact').value = d.contact || "";
+                document.getElementById('riwayat_medis').value = d.medis || "";
+            }
+        }
+
+        function kirimLaporan() {
+            const kategori = document.getElementById('kategori').value;
+            const detail = document.getElementById('detail').value;
+            const nama = document.getElementById('nama').value || "Anonim";
+            if(!kategori || !lat) { alert("Pilih kategori dan AMBIL KOORDINAT dulu!"); return; }
+            const data = {
+                nama: nama,
+                kategori: `[${currentSeverity}] ${kategori}`,
+                detail: detail,
+                lat: lat,
+                lng: lng
+            };
+            fetch(SCRIPT_URL, { method: "POST", body: JSON.stringify(data) })
+            .then(() => alert("🚀 LAPORAN TERKIRIM KE ADMIN!"))
+            .catch(() => alert("Gagal mengirim laporan."));
+        }
+    </script>
+</body>
+</html>
