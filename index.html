@@ -42,6 +42,7 @@
             display: inline-block;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             background-color: white;
+            overflow: hidden; /* Memastikan gambar tetap dalam lingkaran */
         }
     </style>
 </head>
@@ -49,8 +50,8 @@
 
     <div class="header-k3 p-8 shadow-md mb-6 text-center">
         <div class="flex justify-center mb-5">
-            <div class="k3-logo-kustom">
-                <img src="https://raw.githubusercontent.com/sesiliaabigail275-oss/safetylink/main/logo_k3_kustom.png" alt="Logo AEGIS Safety" class="h-20 w-20 object-contain rounded-full">
+            <div class="k3-logo-kustom h-24 w-24 flex items-center justify-center">
+                <img src="logo_k3_kustom.png" alt="Logo AEGIS Safety" class="h-full w-full object-contain">
             </div>
         </div>
         <h1 class="text-3xl font-black tracking-tighter text-gray-800 uppercase">AEGIS SAFETY</h1>
@@ -125,7 +126,7 @@
 
                     <textarea id="detail" class="w-full border border-gray-300 rounded-lg p-4 text-sm" rows="3" placeholder="Jelaskan detail temuan dan lokasi petak..."></textarea>
 
-                    <div class="border-2 border-dashed border-gray-300 p-4 rounded-lg text-center bg-gray-50">
+                    <div class="border-2 border-dashed border-gray-300 p-4 rounded-xl text-center bg-gray-50">
                         <i class="fas fa-camera text-gray-400 text-2xl mb-2"></i>
                         <input type="file" id="foto" class="text-[10px] w-full text-gray-500" accept="image/*">
                     </div>
